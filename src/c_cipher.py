@@ -16,10 +16,10 @@ def encrypt(email="abc012"):
     # TODO: fix line below and, implement functionality rather than literals
     # keep all updates in the anum_flag (bool) variable
     # i.e., 
-    #     A = email[:3] (check first half)
-    #     B = email[3:] (check second half)
+    A = email[:3] # (check first half)
+    B = email[3:] # (check second half)
     #     enum_flag = A or B
-    anum_flag = email[:3] != 'abc' or email[3:] != '012' 
+    anum_flag = not (A.isalpha() and B.isdecimal())
 
     if len_flag:                         # NOTE: here we provide input validation on length
         output = "Length check failed\n"
@@ -31,18 +31,20 @@ def encrypt(email="abc012"):
         output += "Email must have 3 letters followed by 3 digits."
         logging.info(output)
         return output     
-        
-    # TODO: fix line below, process our string into a list
-    email_lst = ["a", "b", "c", "0", "1", "2"]
-        
-    # TODO: complete line(s) below, convert EACH new element into a string
-    new_ascii = ord(email_lst[0]) + 3    # NOTE: here we extract and update element at 0 
-    email_lst[0] = chr(new_ascii)        # NOTE: here we convert our ASCII into string
-        
-    # TODO: fix line below, convert list into a string
-    email_str = "dbc012"
 
-    # keep all updates in the retVal (str) variablei
+    # TODO: fix line below, process our string into a list
+    email_lst = [*email]
+
+    # TODO: complete line(s) below, convert EACH new element into a string
+
+    for i in range(len(email_lst)):
+        new_ascii = ord(email_lst[i]) + 3    # NOTE: here we extract and update element at 0 
+        email_lst[i] = chr(new_ascii)        # NOTE: here we convert our ASCII into string
+
+    # TODO: fix line below, convert list into a string
+    email_str = "".join(email_lst)
+
+    # keep all updates in the retVal (str) variable
     # i.e.,
     #    email_str = " some string updates here "
     #    email_1 = email_str.strip()
@@ -66,10 +68,10 @@ def decrypt(email="def345"):
     # TODO: fix line below and, implement functionality rather than literals
     # keep all updates in the anum_flag (bool) variable
     # i.e., 
-    #     A = email[:3] (check first half)
-    #     B = email[3:] (check second half)
+    A = email[:3] # (check first half)
+    B = email[3:] # (check second half)
     #     enum_flag = A or B
-    anum_flag = email[:3] != 'def' or email[3:] != '345' 
+    anum_flag = not (A.isalpha() and B.isdecimal()) 
 
     if len_flag:                         # NOTE: here we provide input validation on length
         output = "Length check failed\n"
@@ -83,11 +85,20 @@ def decrypt(email="def345"):
         return output   
 
     # TODO: apply the encrypt pseudocode but shift down 3
-    
+
+    email_lst = [*email]
+
+    for i in range(len(email_lst)):
+        new_ascii = ord(email_lst[i]) - 3    # NOTE: here we extract and update element at 0 
+        email_lst[i] = chr(new_ascii)        # NOTE: here we convert our ASCII into string
+
+    # TODO: fix line below, convert list into a string
+    email_str = "".join(email_lst)
+
     # keep all updates in the retVal (str) variablei
     # i.e.,
     #    email_str = " some string updates here "
     #    email_1 = email_str.strip()
     #    retVal = email_1
-    retVal = "aef345"
+    retVal = email_str
     return retVal
